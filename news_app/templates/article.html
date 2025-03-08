@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<article class="news-article" style="padding-top: 15vh;">
+    <article>
+        <h1>{{ article.headline }}</h1>
+    </article>
+    <img src="{{ article.image_url }}" alt="{{ article.title }}" class="hero-image">
+
+    <div class="players-flex">
+        {% if article.video_url %}
+        <div class="media-wrapper">
+            <div class="video-container">
+                <iframe width="560" height="315" src="{{ article.video_url }}" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <article>
+    <p>{{ article.content }}</p>
+    </article>
+
+    <!--<section class="comments">
+        <h2>Fan Comments</h2>
+        {% for comment in comments %}
+        <div class="comment">
+            <img src="{{ comment.user_image }}" alt="User Profile" class="prof-img">
+            <p>{{ comment.text }}</p>
+        </div>
+        {% endfor %}
+    </section>-->
+
+    <section class="recommended">
+        <h2>Related Articles</h2>
+        <div class="related-grid">
+            {% for article in articles %}
+        <article>
+            <img src="{{ article.image_url }}" alt="{{ article.headline }}">
+
+            {% if article.article_id %}
+                <h2><a href="{% url 'article_detail' article.article_id %}"> {{ article.headline }}</a></h2>
+            {% else %}
+                <h2>{{ article.headline }}</h2>
+            {% endif %}
+        
+            <p>{{ article.description }}</p>
+        </article>
+        {% endfor %}
+        </div>
+    </section>
+</article>
+{% endblock %}
